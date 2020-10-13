@@ -6,3 +6,27 @@
   * https://github.com/andreacardybailey/responsive_example/blob/master/styles/responsive-base.css 
   *
 */
+* {
+  box-sizing: border-box;
+}
+main {
+  text-align: center;
+}
+li {
+  text-decoration: none;
+}
+#start-screen {
+  text-align: center;
+  padding: 40px;
+  margin: 55px, auto, 0, auto;
+  background:rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+}
+
+#quiz {
+  text-align: center;
+}
+
+#feedback h2{
+  text-align: center;
+}
