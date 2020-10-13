@@ -38,6 +38,7 @@ function generateSummaryReport() {
 // This function conditionally replaces the contents of the <main> tag based on the state of the store
 function render() {
     $('header').hide();
+    $('#summary').hide();
 
     if(!STORE.quizStarted) {
         // show start page
@@ -145,7 +146,7 @@ function nextQuestion() {
 // SETs back to default values.
 function restartQuiz() {
     console.log('Restart Quiz ...')
-    $('main').html(generateSummaryReport());
+    // $('main').html(generateSummaryReport());
     $('main').on('click', '#restart',e => {
         STORE.quizStarted = false;
         STORE.currentQuestion = 0;
