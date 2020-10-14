@@ -37,7 +37,7 @@ const STORE = {
           'Composition',
           'Lighting',
         ],
-        correctAnswer: 2
+        correctAnswer: 1
       },
       {
         title: 'The aperture of a lens controls the?',
