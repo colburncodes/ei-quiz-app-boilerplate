@@ -19,6 +19,7 @@ function generateHeaderTemplate() {
 function generateFeedback() {
     return `<section id="feedback">
         <h2></h2>
+        <p class="score">Score: </p>
         <p class="user-answer"></p>
         <p class="correct-answer"></p>
         <button id="next">Next question</button>
@@ -61,13 +62,16 @@ function renderQuestion() {
     console.log('Question has rendered');
 
     const question = STORE.questions[STORE.currentQuestion];
-    return `<h2>${question.title}</h2>
+    return `<form>
+    <h2>Question: ${STORE.currentQuestion+1}/5</h2>
+    <h2>${question.title}</h2>
         <ul>
             ${question.answers.map((answer, i) =>`<li><input type="radio" 
             name="answer" value="${i}" id='${i}'/><label for='${i}'>
             ${answer}</label> </li>`).join("")}
             <button id="submit-answer" >Submit</button>
         </ul>
+    </form>
     `;
 }
 
@@ -76,8 +80,8 @@ function renderHeader() {
     console.log('Render Header');
     $('main').html(generateHeaderTemplate());
 
-    // $('header h2').show();
-    $('header .score').text(`Score: ${STORE.score}`);
+    $('.score').show();
+    $('.score').text(`Score: ${STORE.score}`);
     $('.progress').text(`Question ${STORE.currentQuestion}/${STORE.questions.length}`);
 }
 
@@ -91,7 +95,9 @@ function renderFeeback() {
     if(STORE.hasFeedback === 'Incorrect') {
         $('.user-answer').text(`You answered ${STORE.guess}`);
     }
-    $('.correct-answer').text(`The correct answer was ${question.answers[question.correctAnswer]}`);
+    // update to render score to the user.
+    $('.score').text(`You scored ${STORE.score} out of ${STORE.questions.length}`);
+    $('.correct-answer').text(`The correct answer was ${question.answers[question.correctAnswer]} for, "${question.title}"`);
 }
 
 function renderSummary() {
@@ -123,6 +129,7 @@ function submitAnswer(){
         if(Number(answer) === question.correctAnswer) {
             STORE.score++;
             STORE.hasFeedback = 'Correct';
+            $('main').html(generateHeaderTemplate());
         } else {
             STORE.guess = STORE.questions[STORE.currentQuestion].answers[answer];
             STORE.hasFeedback = 'Incorrect';
@@ -146,7 +153,6 @@ function nextQuestion() {
 // SETs back to default values.
 function restartQuiz() {
     console.log('Restart Quiz ...')
-    // $('main').html(generateSummaryReport());
     $('main').on('click', '#restart',e => {
         STORE.quizStarted = false;
         STORE.currentQuestion = 0;
